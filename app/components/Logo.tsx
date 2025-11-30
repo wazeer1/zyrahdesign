@@ -7,7 +7,7 @@ import Logo from "../../public/Assets/logo/logo.svg";
 function LogoComponent() {
   const [logoError, setLogoError] = useState(false);
 
-  console.log("🔥 Logo Re-Rendered"); // test
+  console.log("🔥 Logo Re-Rendered ten"); // test
 
   return (
     <Link href="/" className="flex items-center">
