@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* @theme inline - Removed to fix linter warning, using CSS variables directly */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+}
+
+.font-heading {
+  font-family: var(--font-heading), serif;
+}
+
+.font-body {
+  font-family: var(--font-body), sans-serif;
+}
+
+#home {
+  background-image: url('https://placehold.co/1920x1080/2d2d2d/b89c60?text=ZYRAH+%7C+Minimal+Elegance');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  min-height: 700px;
+  background-color: transparent;
+}

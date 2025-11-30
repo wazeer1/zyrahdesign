@@ -1,0 +1,32 @@
+{
+  "name": "e-com",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "i": "^0.3.7",
+    "lottie-react": "^2.4.1",
+    "next": "16.0.1",
+    "npm": "^11.6.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
