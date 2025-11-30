@@ -1,6 +1,6 @@
 // API configuration
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
+  process.env.NEXT_PUBLIC_API_URL || "https://zyrahdesign-a7hu.vercel.app/api";
 
 export type ProductCategory =
   | "Pheran & Kaftans"
