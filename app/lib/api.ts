@@ -319,7 +319,7 @@ export async function deleteProduct(id: string): Promise<void> {
 
 export interface Category {
   _id: string;
-  id?: string; // For backward compatibility
+  id?: string;
   name: string;
   image: string;
   createdAt?: string;
@@ -630,7 +630,6 @@ export async function deleteLookbook(id: string): Promise<Lookbook> {
   }
 }
 
-
 // get country //
 
 export async function getCountry() {
@@ -667,7 +666,3 @@ export async function convertPrice(basePriceINR: number, country: string) {
     return "$" + basePriceINR;
   }
 }
-
-
-
-

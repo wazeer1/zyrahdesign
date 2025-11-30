@@ -149,11 +149,18 @@ export default function AdminDashboard() {
       image: null,
       imagePreview: primaryImage,
       lookbook: (product as any).lookbook,
-      category: product?.category?._id,
+      category:
+        typeof product.category === "object" &&
+        product.category !== null &&
+        "_id" in product.category
+          ? product.category._id
+          : typeof product.category === "string"
+          ? product.category
+          : "",
       size: sizeArray,
       availability:
         product.availability !== undefined ? product.availability : true,
-      quantity: product.quantity || 0,
+      quantity: (product.quantity || 0).toString(),
     });
     setIsModalOpen(true);
   };
@@ -339,7 +346,7 @@ export default function AdminDashboard() {
           size: sizeString,
           availability: formData.availability,
           lookbook: formData.lookbook,
-          quantity: formData.quantity,
+          quantity: formData.quantity ? Number(formData.quantity) : undefined,
           ...(formData.image && { image: formData.image }),
         });
       } else {
@@ -358,7 +365,7 @@ export default function AdminDashboard() {
           category: formData.category || undefined,
           size: sizeString,
           availability: formData.availability,
-          quantity: formData.quantity ,
+          quantity: formData.quantity ? Number(formData.quantity) : undefined,
         });
       }
 
@@ -674,9 +681,7 @@ export default function AdminDashboard() {
                         >
                           {product.price.toFixed(2)}
                         </td>
-                        <td className="py-3 px-4">
-                          {product.quantity}
-                        </td>
+                        <td className="py-3 px-4">{product.quantity}</td>
                         <td className="py-3 px-4">
                           <div className="flex gap-2">
                             <button
@@ -981,7 +986,9 @@ export default function AdminDashboard() {
                       }}
                       required
                     >
-                      <option value="" className="text-[#7ba1c3]">Select Category</option>
+                      <option value="" className="text-[#7ba1c3]">
+                        Select Category
+                      </option>
                       {categories.map((cat) => (
                         <option value={cat._id}>{cat.name}</option>
                       ))}
