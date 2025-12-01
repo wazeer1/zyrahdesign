@@ -20,6 +20,7 @@ const page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [categoryFormData, setCategoryFormData] = useState({
     name: "",
+    description: "",
     image: null as File | null,
     imagePreview: "",
   });
@@ -28,12 +29,12 @@ const page = () => {
     setEditingCategory(null);
     setCategoryFormData({
       name: "",
+      description: "",
       image: null,
       imagePreview: "",
     });
     setIsCategoryModalOpen(true);
   };
-
 
   const filterCategories = (categoriesList: Category[]) => {
     if (!searchQuery.trim()) {
@@ -43,7 +44,9 @@ const page = () => {
     return categoriesList.filter(
       (category) =>
         category.name.toLowerCase().includes(query) ||
-        category.image.toString().includes(query)
+        category.image.toString().includes(query) ||
+        (category.description &&
+          category.description.toLowerCase().includes(query))
     );
   };
   // Get paginated categories
@@ -103,6 +106,7 @@ const page = () => {
     setEditingCategory(category);
     setCategoryFormData({
       name: category.name,
+      description: category.description || "",
       image: null,
       imagePreview: category.image,
     });
@@ -133,6 +137,7 @@ const page = () => {
     setEditingCategory(null);
     setCategoryFormData({
       name: "",
+      description: "",
       image: null,
       imagePreview: "",
     });
@@ -153,6 +158,7 @@ const page = () => {
       if (editingCategory) {
         await updateCategory(editingCategory._id, {
           name: categoryFormData.name,
+          description: categoryFormData.description,
           ...(categoryFormData.image && { image: categoryFormData.image }),
         });
       } else {
@@ -162,6 +168,7 @@ const page = () => {
         }
         await createCategory({
           name: categoryFormData.name,
+          description: categoryFormData.description,
           image: categoryFormData.image,
         });
       }
@@ -189,12 +196,14 @@ const page = () => {
       <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h2 className="text-2xl font-bold mb-2 text-[#2D2D2D]">Category Management</h2>
+            <h2 className="text-2xl font-bold mb-2 text-[#2D2D2D]">
+              Category Management
+            </h2>
             <p className="text-sm" style={{ color: "#666" }}>
               Manage product categories
             </p>
           </div>
-          
+
           <button
             onClick={handleOpenCategoryModal}
             disabled={isLoading}
@@ -218,20 +227,18 @@ const page = () => {
             Add Category
           </button>
         </div>
-        {
-          categories.length > 0 && (
-            <div className="mb-6">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={handleSearchChange}
-                placeholder="Search products by name, description, or price..."
-                className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-all"
-              />
-            </div>
-          )
-        }
-        
+        {categories.length > 0 && (
+          <div className="mb-6">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder="Search categories by name or description..."
+              className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-all"
+            />
+          </div>
+        )}
+
         {/* Categories Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.length === 0 ? (
@@ -294,89 +301,85 @@ const page = () => {
             ))
           )}
         </div>
-         {/* Pagination Controls */}
-         {getTotalPages() > 1 && (
-            <div className="flex justify-between items-center mt-6">
-              <div className="text-sm" style={{ color: "#666" }}>
-                Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
-                {Math.min(
-                  currentPage * itemsPerPage,
-                  filterCategories(categories).length
-                )}{" "}
-                of {filterCategories(categories).length} categories
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(1, prev - 1))
-                  }
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{
-                    backgroundColor: currentPage === 1 ? "#E5E5E5" : "#B89C60",
-                    color: "#2D2D2D",
-                  }}
-                >
-                  Previous
-                </button>
-                {Array.from({ length: getTotalPages() }, (_, i) => i + 1).map(
-                  (page) => {
-                    // Show first page, last page, current page, and pages around current
-                    if (
-                      page === 1 ||
-                      page === getTotalPages() ||
-                      (page >= currentPage - 1 && page <= currentPage + 1)
-                    ) {
-                      return (
-                        <button
-                          key={page}
-                          onClick={() => setCurrentPage(page)}
-                          className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
-                          style={{
-                            backgroundColor:
-                              currentPage === page ? "#2D2D2D" : "#B89C60",
-                            color: currentPage === page ? "#B89C60" : "#2D2D2D",
-                          }}
-                        >
-                          {page}
-                        </button>
-                      );
-                    } else if (
-                      page === currentPage - 2 ||
-                      page === currentPage + 2
-                    ) {
-                      return (
-                        <span
-                          key={page}
-                          className="px-2"
-                          style={{ color: "#666" }}
-                        >
-                          ...
-                        </span>
-                      );
-                    }
-                    return <span key={page} style={{ display: "none" }} />;
-                  }
-                )}
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) =>
-                      Math.min(getTotalPages(), prev + 1)
-                    )
-                  }
-                  disabled={currentPage === getTotalPages()}
-                  className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{
-                    backgroundColor:
-                      currentPage === getTotalPages() ? "#E5E5E5" : "#B89C60",
-                    color: "#2D2D2D",
-                  }}
-                >
-                  Next
-                </button>
-              </div>
+        {/* Pagination Controls */}
+        {getTotalPages() > 1 && (
+          <div className="flex justify-between items-center mt-6">
+            <div className="text-sm" style={{ color: "#666" }}>
+              Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+              {Math.min(
+                currentPage * itemsPerPage,
+                filterCategories(categories).length
+              )}{" "}
+              of {filterCategories(categories).length} categories
             </div>
-          )}
+            <div className="flex gap-2">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: currentPage === 1 ? "#E5E5E5" : "#B89C60",
+                  color: "#2D2D2D",
+                }}
+              >
+                Previous
+              </button>
+              {Array.from({ length: getTotalPages() }, (_, i) => i + 1).map(
+                (page) => {
+                  // Show first page, last page, current page, and pages around current
+                  if (
+                    page === 1 ||
+                    page === getTotalPages() ||
+                    (page >= currentPage - 1 && page <= currentPage + 1)
+                  ) {
+                    return (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+                        style={{
+                          backgroundColor:
+                            currentPage === page ? "#2D2D2D" : "#B89C60",
+                          color: currentPage === page ? "#B89C60" : "#2D2D2D",
+                        }}
+                      >
+                        {page}
+                      </button>
+                    );
+                  } else if (
+                    page === currentPage - 2 ||
+                    page === currentPage + 2
+                  ) {
+                    return (
+                      <span
+                        key={page}
+                        className="px-2"
+                        style={{ color: "#666" }}
+                      >
+                        ...
+                      </span>
+                    );
+                  }
+                  return <span key={page} style={{ display: "none" }} />;
+                }
+              )}
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(getTotalPages(), prev + 1))
+                }
+                disabled={currentPage === getTotalPages()}
+                className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor:
+                    currentPage === getTotalPages() ? "#E5E5E5" : "#B89C60",
+                  color: "#2D2D2D",
+                }}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       {isCategoryModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -468,6 +471,41 @@ const page = () => {
                     }}
                     placeholder="Enter category name"
                     required
+                  />
+                </div>
+
+                <div>
+                  <label
+                    className="block text-sm font-medium mb-2"
+                    style={{ color: "#2D2D2D" }}
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    value={categoryFormData.description}
+                    onChange={(e) =>
+                      setCategoryFormData((prev) => ({
+                        ...prev,
+                        description: e.target.value,
+                      }))
+                    }
+                    className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-all resize-none"
+                    style={{
+                      borderColor: "#E5E5E5",
+                      backgroundColor: "#F8F8F8",
+                      color: "#2D2D2D",
+                      minHeight: "100px",
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = "#B89C60";
+                      e.currentTarget.style.backgroundColor = "#FFFFFF";
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = "#E5E5E5";
+                      e.currentTarget.style.backgroundColor = "#F8F8F8";
+                    }}
+                    placeholder="Enter category description (optional)"
+                    rows={4}
                   />
                 </div>
               </div>

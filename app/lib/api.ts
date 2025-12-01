@@ -321,6 +321,7 @@ export interface Category {
   id?: string;
   name: string;
   image: string;
+  description?: string;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -384,6 +385,9 @@ export async function createCategory(
     const formData = new FormData();
 
     formData.append("name", category.name);
+    if (category.description) {
+      formData.append("description", category.description);
+    }
     if (category.image instanceof File) {
       formData.append("image", category.image);
     }
@@ -438,6 +442,9 @@ export async function updateCategory(
     const formData = new FormData();
 
     if (category.name) formData.append("name", category.name);
+    if (category.description !== undefined) {
+      formData.append("description", category.description || "");
+    }
     if (category.image instanceof File) {
       formData.append("image", category.image);
     }
