@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "/assets/meta-image.png", // ✔ your meta image path
+        url: "/assets/meta-image.svg", // ✔ your meta image path
         width: 1200,
         height: 630,
         alt: "ZYRAH Meta Image",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/assets/meta-image.png"], // ✔ same image for Twitter
+    images: ["/assets/meta-image.svg"], // ✔ same image for Twitter
   },
 };
 
