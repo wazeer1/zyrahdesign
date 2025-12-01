@@ -100,11 +100,7 @@ export default function Collections() {
                       {category.description}
                     </p>
                   )}
-                  {!category.description && (
-                    <p className="text-sm text-gray-600 mb-4">
-                      Explore our curated collection
-                    </p>
-                  )}
+                 
                   <span className="inline-block text-sm font-semibold text-[#B89C60] group-hover:underline">
                     Shop Now →
                   </span>

@@ -72,7 +72,7 @@ function Lookbook() {
                   {item.description}
                 </p>
                 <a    
-                //  href="https://wa.me/9562479175"        
+                //  href="https://wa.me/+971547081910"        
                   className="mt-6 self-start px-5 py-2 text-sm font-semibold rounded-full border border-[#B89C60] text-[#B89C60] hover:bg-[#B89C60] hover:text-[#2D2D2D] transition-colors"
                   style={{ letterSpacing: '0.12em' }}
                 >

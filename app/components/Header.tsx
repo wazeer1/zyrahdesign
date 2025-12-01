@@ -76,7 +76,7 @@ export default function Header() {
       <div className="flex items-center ">
         {/* WhatsApp Icon */}
         <a
-          href="https://wa.me/9562479175"
+          href="https://wa.me/+971547081910"
           target="_blank"
           rel="noopener noreferrer"
           className="text-xl p-1 transition duration-300 hover:opacity-80"
