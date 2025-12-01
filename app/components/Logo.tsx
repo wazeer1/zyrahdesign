@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "../../public/Assets/logo/logo.svg";
+import Logo from "../../public/assets/logo/logo.svg";
 
 function LogoComponent() {
   const [logoError, setLogoError] = useState(false);
