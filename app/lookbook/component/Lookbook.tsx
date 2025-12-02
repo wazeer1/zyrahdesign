@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from "next/navigation";
 import { fetchLookbooks } from "@/app/lib/api";
 import type { Lookbook } from "@/app/lib/api";
 import Loader from '@/app/components/Loader';
 
 
 function Lookbook() {
-  const router = useRouter();
-  const handleCategoryClick = () => {
-    router.push(`/lookbook`);
-  };
   const [lookBook, setLookBook] = useState<Lookbook[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -52,7 +47,6 @@ function Lookbook() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full">
           {lookBook.map((item, i) => (
             <div
-              onClick={handleCategoryClick}
               key={i}
               className="group flex flex-col h-full rounded-xl border-2 border-dashed shadow-md hover:shadow-2xl transition duration-300 overflow-hidden"
               style={{ borderColor: "#B89C60"}}
@@ -72,7 +66,7 @@ function Lookbook() {
                   {item.description}
                 </p>
                 <a    
-                //  href="https://wa.me/+971547081910"        
+                 href="https://wa.me/+971547081910"        
                   className="mt-6 self-start px-5 py-2 text-sm font-semibold rounded-full border border-[#B89C60] text-[#B89C60] hover:bg-[#B89C60] hover:text-[#2D2D2D] transition-colors"
                   style={{ letterSpacing: '0.12em' }}
                 >
