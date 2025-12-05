@@ -34,10 +34,12 @@ export default function Footer() {
             <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
             <circle cx="12" cy="10" r="3" />
           </svg>
-          <span style={{ color: "#F8F8F8" }} className="">
-            Beauty Bloom Cosmetics Trading FZE
-            Business Centre, <br /> Sharjah Publishing City Free Zone,<br /> Sharjah, United Arab Emirates
-          </span>
+          
+          <div className="text-center md:text-center text-[#F8F8F8] ">
+            <p>Address: <strong>Beauty Bloom Cosmetics Trading FZE</strong></p>
+            <p>Business Centre, Sharjah Publishing City Free Zone</p>
+            <p>Sharjah, United Arab Emirates</p>
+          </div>
         </p>
         <p className="flex items-center justify-center">
           <svg
