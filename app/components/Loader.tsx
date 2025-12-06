@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import loaderAnimation from "@/public/assets/loader.json";
+import loaderAnimation from "../assets/loader.json";
 
 export default function Loader({ size = 120 }) {
   return (
