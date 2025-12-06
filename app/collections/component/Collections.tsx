@@ -77,12 +77,12 @@ export default function Collections() {
                     src={category.image}
                     alt={category.name}
                     // className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => {
-                      // Fallback to placeholder if image fails to load
-                      e.currentTarget.src = `https://placehold.co/600x600/2d2d2d/b89c60?text=${encodeURIComponent(
-                        category.name
-                      )}`;
-                    }}
+                    // onError={(e) => {
+                    //   // Fallback to placeholder if image fails to load
+                    //   e.currentTarget.src = `https://placehold.co/600x600/2d2d2d/b89c60?text=${encodeURIComponent(
+                    //     category.name
+                    //   )}`;
+                    // }}
                   />
                 </div>
 

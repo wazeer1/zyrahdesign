@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import Logo from "../../public/assets/logo/logo.svg";
+// import Logo from "../../public/assets/logo/logo.svg";
 import Image from "next/image";
 
 
@@ -17,7 +17,7 @@ export default function Header() {
       {/* Logo */}
       <Link href="/">
       <Image
-          src={Logo}          
+          src="/assets/logo/logo.svg"      
           alt="ZYRAH Logo"
           width={0}
           height={0}
@@ -144,7 +144,7 @@ export default function Header() {
               <div className="flex justify-between items-center mb-8">
                 <Link href="/">
                   <Image
-                    src={Logo}          
+                    src="/assets/logo/logo.svg"          
                     alt="ZYRAH Logo"
                     width={120}
                     height={40}
