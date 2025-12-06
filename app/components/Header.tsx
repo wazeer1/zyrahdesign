@@ -17,7 +17,7 @@ export default function Header() {
       {/* Logo */}
       <Link href="/">
       <Image
-          src="/assets/logo/logo.svg"      
+          src={Logo}      
           alt="ZYRAH Logo"
           width={0}
           height={0}
