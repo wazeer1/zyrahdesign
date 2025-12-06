@@ -1,11 +1,11 @@
 import Lottie from "lottie-react";
-// import loaderAnimation from "../../public/assets/loader.json"; // adjust path
+import loaderAnimation from "@/public/assets/loader.json";
 
 export default function Loader({ size = 120 }) {
   return (
     <div className="flex justify-center items-center h-48">
       <Lottie
-        animationData={require("../../public/assets/loader.json")}
+        animationData={loaderAnimation}
         loop
         style={{ width: size, height: size }}
       />
